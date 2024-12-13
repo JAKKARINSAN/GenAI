@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Modern Counter</title> 
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+        .header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .counter {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .random-number {
+            position: absolute;
+            font-size: 2rem;
+            color: #fff;
+            animation: fadeOut 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">เรียนการเขียนเว็บด้วย Gen AI</div>
+    <div class="counter" id="counter">0</div>
+    <div class="buttons">
+        <button onclick="incrementWithDelay()">Add 1-20</button>
+    </div>
+
+    <script>
+        let count = 0;
+
+        async function incrementWithDelay() {
+            for (let i = 1; i <= 20; i++) {
+                const randomX = Math.random() * window.innerWidth;
+                const randomY = Math.random() * window.innerHeight;
+
+                count++;
+                document.getElementById('counter').textContent = count;
+
+                const numberElement = document.createElement('div');
+                numberElement.textContent = `+1`;
+                numberElement.className = 'random-number';
+                numberElement.style.left = `${randomX}px`;
+                numberElement.style.top = `${randomY}px`;
+
+                document.body.appendChild(numberElement);
+
+                setTimeout(() => {
+                    numberElement.remove();
+                }, 2000);
+
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+    </script>
+</body>
+</html>
